@@ -1,9 +1,10 @@
 import React from 'react';
+import HeroSection from '../../components/HeroScetion/HeroSection';
 
 const Home = () => {
     return (
         <div>
-            <h1 style={{ textDecoration: 'underline'}}>Home Section </h1>
+            <HeroSection></HeroSection>
         </div>
     );
 };
