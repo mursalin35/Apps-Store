@@ -1,7 +1,12 @@
 import React from 'react';
 import error from '../../assets/error-404.png'
+import { useNavigate } from 'react-router';
 
 const ErrorPage = () => {
+
+    // Take a step back 
+    const navigate = useNavigate();
+
     return (
         <section className='my-10'>
             {/* Error image  */}
@@ -15,7 +20,7 @@ const ErrorPage = () => {
 
             {/* button  */}
             <div className='flex justify-center mt-8 items-center '>
-                <button className='rounded-sm w-30 h-10 bg-gradient-to-br from-[#632EE3] to-[#9F62F2] text-white font-semibold cursor-pointer btn'>Go Back!</button>
+                <button onClick={()=> navigate(-1)} className='rounded-sm w-30 h-10 bg-gradient-to-br from-[#632EE3] to-[#9F62F2] text-white font-semibold cursor-pointer btn'>Go Back!</button>
             </div>
         </section>
     );
