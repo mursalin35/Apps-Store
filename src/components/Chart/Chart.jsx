@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bar, BarChart, Legend, ResponsiveContainer, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart, Tooltip, Legend, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
 const Chart = ({ ratings }) => {
     // const { name, count } = rating;
@@ -13,7 +13,7 @@ const Chart = ({ ratings }) => {
     return (
         // BarChart Container 
         <div className=''>
-            <h4 className='font-semibold text-[1.3rem] mb-3'>Ratings</h4>
+            <h4 className='font-semibold text-[1.3rem] mb-3 '>Ratings</h4>
 
             {/* BarChart  */}
             <ResponsiveContainer width="100%" height={350}>
@@ -22,9 +22,9 @@ const Chart = ({ ratings }) => {
                 >
                     <XAxis type="number" />
                     <YAxis dataKey="name" type="category" />
-                    {/* <Tooltip /> hover er moto kaj kre */}
-                    <Legend /> 
-                    <Bar dataKey="count" fill="#FF8811" barSize={25} />
+                    <Tooltip cursor={{ fill: 'transparent' }} />
+                    <Legend />
+                    <Bar dataKey="count" fill="#FF8811" barSize={25}  style={{ cursor: 'pointer' }}/>
                 </BarChart>
             </ResponsiveContainer>
 

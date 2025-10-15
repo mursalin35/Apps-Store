@@ -8,11 +8,10 @@ import Chart from '../Chart/Chart';
 
 const AppDetails = () => {
 
-    const { id } = useParams(); // click card id number found 
+    const { id } = useParams(); // click card id number found
     const appId = parseInt(id); // string to number convert id
 
     const data = useLoaderData(); // data load
-
     const singleApp = data.find(app => app.id === appId) // app & appDetails id match
 
     const { image, title, companyName, description, size, reviews, ratingAvg, downloads, ratings } = singleApp;
@@ -25,12 +24,12 @@ const AppDetails = () => {
             <div className='flex items-center gap-7 border-b-[1.5px] border-gray-300 pb-7'>
 
                 {/* card image  */}
-                <div className='rounded-md bg-[#e3e1e1] w-70 h-70 overflow-hidden'>
+                <div className='rounded-md bg-[#e3e1e1] w-90 h-70 overflow-hidden'>
                     <img className='w-full h-full object-cover' src={image} alt="image" />
                 </div>
 
                 {/* card title  */}
-                <div className=''>
+                <div className='w-full'>
                     <h1 className='font-bold text-[2rem]'>{title}</h1>
                     <p className='text-sm font-semibold text-gray-500 pb-5 border-b-[1.5px] border-gray-300'>Developed by <span className='bg-gradient-to-br from-[#632EE3] to-[#9F62F2] bg-clip-text text-transparent '>M.S Mursalin</span></p>
 

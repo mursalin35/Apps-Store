@@ -2,6 +2,9 @@ import React from 'react';
 import card from '../../assets/demo-app (1).webp'
 import download from '../../assets/icon-downloads.png'
 import star from '../../assets/icon-ratings.png'
+import App from '../App/App';
+import Apps from '../../pages/Apps/Apps';
+import { Link } from 'react-router';
 
 
 const TrendingApps = () => {
@@ -39,9 +42,12 @@ const TrendingApps = () => {
             </div>
 
             {/* button  */}
+           <Link to={'/apps'}>
             <div className='flex justify-center mt-12 items-center '>
             <button className='rounded-sm w-30 h-10 bg-gradient-to-br from-[#632EE3] to-[#9F62F2] text-white font-semibold cursor-pointer btn'>Show all</button>
             </div>
+           </Link>
+
         </section>
     );
 };

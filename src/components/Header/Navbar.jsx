@@ -1,7 +1,7 @@
 import React from 'react';
 import Logo from '../../assets/logo.png'
 import GitIcon from '../../assets/git-icon.png'
-import { NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router';
 const Navbar = () => {
 
     // text color & after the start underline color
@@ -46,10 +46,12 @@ const Navbar = () => {
                         {navLinks}
                     </ul>
                 </div>
-                <button className='flex items-center text-xl font-semibold cursor-pointer gap-2'>
-                    <img className='h-11 w-11' src={Logo} alt="logo" />
-                    <h1 className='bg-gradient-to-tl from-[#9F62F2] to-[#632EE3] bg-clip-text text-transparent'>Apps Store</h1>
-                </button>
+                <Link to={'/'}>
+                    <button className='flex items-center text-xl font-semibold cursor-pointer gap-2'>
+                        <img className='h-11 w-11' src={Logo} alt="logo" />
+                        <h1 className='bg-gradient-to-tl from-[#9F62F2] to-[#632EE3] bg-clip-text text-transparent'>Apps Store</h1>
+                    </button>
+                </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1 font-semibold">
@@ -57,10 +59,10 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end ">
-                <button className='flex items-center btn bg-gradient-to-tl from-[#9F62F2] to-[#632EE3]'>
+                <a target='_blank' href="https://github.com/mursalin35" className='flex items-center btn bg-gradient-to-tl from-[#9F62F2] to-[#632EE3]'>
                     <img src={GitIcon} alt="git icon" />
                     <a className="text-white font-semibold">Contribute</a>
-                </button>
+                </a>
             </div>
         </nav>
     );
