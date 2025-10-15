@@ -63,9 +63,11 @@ const AppDetails = () => {
                 </div>
             </div>
 
-            {
-                ratings.map(rating => <Chart rating={rating}></Chart>)
-            }
+            {/* Rating Chart  */}
+            <div className='mt-8 border-b-[1.5px] border-gray-300 pb-7'>
+                
+                <Chart ratings ={ratings}></Chart>
+            </div>
 
             <Description description={description}></Description>
         </section>
