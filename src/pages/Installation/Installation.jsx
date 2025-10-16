@@ -59,24 +59,18 @@ const Installation = () => {
                 <h5 className='font-semibold text-[1.1rem]'>(<span>{install.length}</span>) Apps Found</h5>
 
                 {/* 🔹 Sort dropdown menu */}
-                <label className='form-control w-full max-w-xs'>
+                <label className='form-control w-32 max-w-xs'>
                     <select
                         className='select select-bordered'
                         value={sort}
                         onChange={e => setSort(e.target.value)}>
-                        <option value="none">Sort By Size</option>
+                        <option className='opacity-60' value="none">Sort By Size</option>
                         <option onClick={() => handleSort('size-asc')} value="size-asc">Low-High</option>
                         <option onClick={() => handleSort('size-des')} value="size-des">High-Low</option>
                     </select>
                 </label>
 
-                {/* <details className="dropdown">
-                    <summary className="btn m-1">Sort By Size {sort ? sort : ""}</summary>
-                    <ul className="menu dropdown-content bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
-                        <li onClick={() => handleSort('size-asc')}><a>Low-High</a></li>
-                        <li onClick={() => handleSort('size-des')}><a>High-Low</a></li>
-                    </ul>
-                </details> */}
+             
             </div>
 
             {/* 🔹 InstallCard component map করে দেখানো */}
