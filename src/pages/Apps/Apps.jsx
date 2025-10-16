@@ -12,7 +12,7 @@ const Apps = () => {
 
     return (
         // All card container 
-        <section className='mt-5 mx-10'>
+        <section className='mt-10 mx-10'>
             {/* title  */}
             <div className='text-center'>
                 <h1 className='text-[2.5rem] font-bold'>Our All Applications</h1>
@@ -35,7 +35,7 @@ const Apps = () => {
                     }
                 </section>
             </Suspense>
-
+ 
         </section>
 
     );

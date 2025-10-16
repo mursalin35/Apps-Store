@@ -7,7 +7,7 @@ import Apps from '../../pages/Apps/Apps';
 import { Link } from 'react-router';
 
 
-const TrendingApps = () => {
+const   TrendingApps = () => {
     return (
         // Card container 
         <section className='mt-5'>
