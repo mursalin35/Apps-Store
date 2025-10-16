@@ -1,8 +1,17 @@
 import React from 'react';
 import down from '../../assets/icon-downloads.png'
 import rating from '../../assets/icon-ratings.png'
-const InstallCard = ({nApp}) => {
+import { removeFromStore } from '../../utility/localStore';
+const InstallCard = ({nApp, onUninstall }) => {
     const { id, image, size, title, downloads, ratingAvg } = nApp;
+
+    // 🔥 Uninstall handler
+    const handleUninstall = () => {
+        removeFromStore(id); // localStorage থেকে মুছে ফেলবে
+        onUninstall(id); // Installation component-এ state আপডেট করবে
+    }
+
+
     return (    
         // Install card container 
         <div className='bg-white p-2 rounded-xs flex justify-between items-center mt-4'>
@@ -33,7 +42,7 @@ const InstallCard = ({nApp}) => {
             </div>
 
             {/* Button  */}
-            <button className='btn bg-[#00D390] text-white px-7'>
+            <button onClick={handleUninstall} className='btn bg-[#00D390] text-white px-7'>
                 Uninstall
             </button>
         </div>

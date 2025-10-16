@@ -1,14 +1,18 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useState } from 'react';
 
 import App from '../../components/App/App';
 import { useLoaderData } from 'react-router';
 
 
 const Apps = () => {
-
     // loader from json data 
     const data = useLoaderData();
 
+    // Search method 
+    const [search, setSearch] = useState('');
+    const term = search.trim().toLocaleLowerCase();
+    const searchApp = term ?
+        data.filter(app => app.title.toLocaleLowerCase().includes(term)) : data;
 
     return (
         // All card container 
@@ -22,20 +26,28 @@ const Apps = () => {
             {/* Total count & search ber  */}
             <div className='flex justify-between mt-10 -mb-4'>
                 {/* left  */}
-                <h5 className='font-semibold text-[1.1rem]'>(<span>{data.length}</span>) Apps Found</h5>
+                <h5 className='font-semibold text-[1.1rem]'>(<span>{searchApp.length}</span>) Apps Found</h5>
 
                 {/* search ber  */}
-                <input className='border-2 border-amber-500' placeholder='search ber' type="text" name="" id="" />
+                <label className="input">
+                    <i class="fa-solid fa-magnifying-glass opacity-40 text-[1.1rem]"></i>
+                    <input
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        type="search"
+                        placeholder="Search Apps" />
+                </label>
+
             </div>
 
             <Suspense fallback={<span>Loading...</span>}>
-                <section className='grid grid-cols-4 gap-5 gap-y-10 mt-10'>  
+                <section className='grid grid-cols-4 gap-5 gap-y-10 mt-10'>
                     {
-                        data.map(app => <App key={app.id} app={app}></App>)
+                        searchApp.map(app => <App key={app.id} app={app}></App>)
                     }
                 </section>
             </Suspense>
- 
+
         </section>
 
     );
