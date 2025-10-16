@@ -1,53 +1,28 @@
 import React from 'react';
-import card from '../../assets/demo-app (1).webp'
-import download from '../../assets/icon-downloads.png'
-import star from '../../assets/icon-ratings.png'
 import App from '../App/App';
-import Apps from '../../pages/Apps/Apps';
-import { Link } from 'react-router';
+import { useLoaderData } from 'react-router';
 
 
-const   TrendingApps = () => {
+const TrendingApps = () => {
+    const apps = useLoaderData();
+    const limitedApps = apps.slice(0, 8);
+
     return (
-        // Card container 
-        <section className='mt-5'>
+        // TrendingApp App container 
+   
+        <section className='mt-5 mx-10'>
             {/* title  */}
             <div className='text-center'>
                 <h1 className='text-[2.5rem] font-bold'>Trending Apps</h1>
                 <p className='opacity-70 mt-3'>Explore All Trending Apps on the Market developed by us</p>
             </div>
 
-
-            {/* Card Section  */}
-            <div className='p-3 bg-white mt-10'>
-                {/* Image & title  */}
-                <div className='rounded-md   h-60 overflow-hidden'>
-                    <img className='w-full h-full object-cover' src={card} alt="" />
-                </div>
-                <p className='mt-2 font-semibold'>Forest: Focus for Productivity</p>
-
-                {/* download & rating item  */}
-                <div className='flex justify-between mt-2'>
-                    {/* download item */}
-                    <div className='flex items-center gap-1.5 bg-[#F1F5E8]  px-1.5 py-.5 rounded-[2px]'>
-                        <img className='w-[11px] h-[11px]' src={download} alt="download icon" />
-                        <span className='text-[#00D390] text-sm font-semibold'>9M</span>
-                    </div>
-                    {/* star item */}
-                    <div className='flex items-center gap-1.5 bg-[#FFF0E1]  px-1.5 py-.5 rounded-[2px]'>
-                        <img className='w-3 h-3' src={star} alt="star icon" />
-                        <span className='text-[#FF8811] text-sm font-semibold'>5</span>
-                    </div>
-                </div>
+            {/* Card container  */}
+            <div className='grid grid-cols-4 gap-5 gap-y-10 mt-10'>
+                {
+                    limitedApps.map(app => <App key={app.id} app={app}></App>)
+                }
             </div>
-
-            {/* button  */}
-           <Link to={'/apps'}>
-            <div className='flex justify-center mt-12 items-center '>
-            <button className='rounded-sm w-30 h-10 bg-gradient-to-br from-[#632EE3] to-[#9F62F2] text-white font-semibold cursor-pointer btn'>Show all</button>
-            </div>
-           </Link>
-
         </section>
     );
 };
