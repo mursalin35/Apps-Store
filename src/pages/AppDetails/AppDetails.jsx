@@ -65,7 +65,7 @@ const AppDetails = () => {
 
                     {/* button  */}
 
-                    <button onClick={() => installApp(id)} className='mt-4 rounded-sm w-50 h-10 bg-[#00D390] text-white font-semibold cursor-pointer btn'>Install Now (291 MB)</button>
+                    <button onClick={() => installApp(id)} className='mt-4 rounded-sm w-50 h-10 bg-[#00D390] text-white font-semibold cursor-pointer btn'>Install Now ({size} MB)</button>
                 </div>
             </div>
 
