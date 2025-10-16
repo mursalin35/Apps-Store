@@ -65,16 +65,16 @@ const Installation = () => {
                         value={sort}
                         onChange={e => setSort(e.target.value)}>
                         <option value="none">Sort By Size</option>
-                        <option value="size-asc">Low-High</option>
-                        <option value="size-des">High-Low</option>
+                        <option onClick={() => handleSort('size-asc')} value="size-asc">Low-High</option>
+                        <option onClick={() => handleSort('size-des')} value="size-des">High-Low</option>
                     </select>
                 </label>
 
                 {/* <details className="dropdown">
                     <summary className="btn m-1">Sort By Size {sort ? sort : ""}</summary>
                     <ul className="menu dropdown-content bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
-                        <li onClick={() => handleSort('Low-High')}><a>Low-High</a></li>
-                        <li onClick={() => handleSort('High-Low')}><a>High-Low</a></li>
+                        <li onClick={() => handleSort('size-asc')}><a>Low-High</a></li>
+                        <li onClick={() => handleSort('size-des')}><a>High-Low</a></li>
                     </ul>
                 </details> */}
             </div>
