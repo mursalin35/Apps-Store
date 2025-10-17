@@ -4,61 +4,57 @@ import { getInstallApp, removeFromStore } from '../../utility/localStore';
 import InstallCard from '../../components/InstallCard/InstallCard';
 
 const Installation = () => {
-    // 🔹 install: ইনস্টল হওয়া অ্যাপগুলোর state রাখবে
-    // 🔹 sort: বর্তমান sort টাইপ রাখবে (Low-High / High-Low)
-    const [install, setInstall] = useState([]);
-    const [sort, setSort] = useState("none");
-
-    // 🔹 data: loader থেকে সব অ্যাপ ডাটা লোড হবে
-    const data = useLoaderData();
-
-    // 🔹 useEffect:
-    // localStorage থেকে ইনস্টল হওয়া আইডিগুলো বের করবে,
-    // তারপর data থেকে সেই অ্যাপগুলো ফিল্টার করে install state এ সেট করবে।
+    // Tab title change 
     useEffect(() => {
-        const storeAppData = getInstallApp(); // localStorage থেকে অ্যাপ আইডি গুলো নেয়া
-        const installedApp = data.filter(app => storeAppData.includes(app.id)); // matching apps বের করা
-        setInstall(installedApp); // UI তে সেট করা
+        document.title = "Apps Installation";
+    }, []);
+
+    const [install, setInstall] = useState([]); // Install app -> state
+    const [sort, setSort] = useState("none"); // sort by size
+
+    const data = useLoaderData();  // data load from loader:
+
+    // localStorage from get id
+    useEffect(() => {
+        const storeAppData = getInstallApp();
+        // all data id & localStorage id matching 
+        const installedApp = data.filter(app => storeAppData.includes(app.id));
+        setInstall(installedApp); // UI set matching id
     }, [data]);
 
-    // 🔹 handleSort:
-    // ব্যবহারকারী যদি sort বেছে নেয় (Low-High বা High-Low),
-    // তাহলে install অ্যারের size অনুযায়ী sort করে সেট করা হয়।
+    // sorted by app 
     const handleSort = (type) => {
-        setSort(type); // UI তে কোন sort চালু আছে সেটা দেখানোর জন্য
+        setSort(type); // running UI sort watch
 
         if (type === "size-asc") {
-            // ছোট থেকে বড় সাইজ অনুযায়ী সাজানো
+            // sorted by ascending 
             setInstall([...install].sort((a, b) => a.size - b.size));
         }
         else if (type === "size-des") {
-            // বড় থেকে ছোট সাইজ অনুযায়ী সাজানো
+            // sorted by descending
             setInstall([...install].sort((a, b) => b.size - a.size));
         }
     };
 
-    // 🔹 handleUninstall:
-    // যখন কোনো অ্যাপের Uninstall বোতাম চাপা হবে —
-    // ১️⃣ localStorage থেকে সেই অ্যাপ remove হবে,
-    // ২️⃣ install state থেকেও মুছে ফেলা হবে।
+    // Uninstall handel
     const handleUninstall = (id) => {
-        removeFromStore(id); // localStorage থেকে remove করা
-        setInstall(prev => prev.filter(app => app.id !== id)); // UI থেকে remove করা
+        removeFromStore(id); // remove from localStorage
+        setInstall(prev => prev.filter(app => app.id !== id)); // remove from UI
     };
 
     return (
         <section className='mx-10 mt-10'>
-            {/* 🔹 পেজের শিরোনাম ও বর্ণনা */}
+            {/* Page title */}
             <div className='text-center'>
                 <h1 className='text-[2.5rem] font-bold'>Your Installed Apps</h1>
                 <p className='opacity-70 mt-3'>Explore All Trending Apps on the Market developed by us</p>
             </div>
 
-            {/* 🔹 মোট কতগুলো অ্যাপ ইনস্টল করা আছে ও sort control */}
+            {/* Found apps & sort control */}
             <div className='flex justify-between mt-10'>
                 <h5 className='font-semibold text-[1.1rem]'>(<span>{install.length}</span>) Apps Found</h5>
 
-                {/* 🔹 Sort dropdown menu */}
+                {/* Sort dropdown menu */}
                 <label className='form-control w-32 max-w-xs'>
                     <select
                         className='select select-bordered'
@@ -69,18 +65,16 @@ const Installation = () => {
                         <option onClick={() => handleSort('size-des')} value="size-des">High-Low</option>
                     </select>
                 </label>
-
-             
             </div>
 
-            {/* 🔹 InstallCard component map করে দেখানো */}
+            {/* InstallCard component by map */}
             <div>
                 {
                     install.map(nApp =>
                         <InstallCard
-                            key={nApp.id}             // unique key
-                            nApp={nApp}               // app data পাঠানো
-                            onUninstall={handleUninstall} // uninstall handler পাঠানো
+                            key={nApp.id}
+                            nApp={nApp}
+                            onUninstall={handleUninstall}
                         />
                     )
                 }

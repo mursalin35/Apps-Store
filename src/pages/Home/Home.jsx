@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import HeroSection from '../../components/HeroSection/HeroSection';
 import TrendingApps from '../../components/TrendingApps/TrendingApps';
 import { Link } from 'react-router';
 
 const Home = () => {
+    // Tab title change 
+    useEffect(() => {
+        document.title = "Apps Store";
+    }, []);
+
     return (
         <div>
             <HeroSection></HeroSection>
             <TrendingApps></TrendingApps>
-            
+
             {/* button  */}
             <Link to={'/apps'}>
                 <div className='flex justify-center mt-12 items-center '>

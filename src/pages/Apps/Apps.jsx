@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 
 import App from '../../components/App/App';
 import { useLoaderData } from 'react-router';
@@ -6,6 +6,11 @@ import AppError from '../../components/AppError/AppError';
 
 
 const Apps = () => {
+    // Tab title change 
+    useEffect(() => {
+        document.title = "All Apps";
+    }, []);
+
     // loader from json data 
     const data = useLoaderData();
 
