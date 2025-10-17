@@ -3,6 +3,7 @@ import Navbar from '../../components/Header/Navbar';
 import { Outlet } from 'react-router';
 import Footer from '../../components/Footer/Footer';
 import { ToastContainer } from 'react-toastify';
+import ScrollPath from '../../components/ScrollPath/ScrollPath';
 
 const Root = () => {
     return (
@@ -10,6 +11,7 @@ const Root = () => {
             <Navbar></Navbar>
             <Outlet></Outlet>
             <Footer></Footer>
+             <ScrollPath />
 
             <ToastContainer />
         </div>
