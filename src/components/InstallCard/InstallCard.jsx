@@ -11,7 +11,8 @@ const InstallCard = ({ nApp, onUninstall }) => {
         removeFromStore(id); // localStorage থেকে মুছে ফেলবে
         onUninstall(id); // Installation component-এ state আপডেট করবে
 
-        toast(`🗑️ ${title} App Uninstalled`);
+        // toast(`🗑️ ${title} App Uninstalled`);
+        toast.error(`${title} App Uninstalled!`, {position: "top-center",});
     }
 
 

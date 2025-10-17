@@ -40,7 +40,7 @@ const AppDetails = () => {
     const handleInstall = () => {
         addToStore(appId);   // localStorage id add
         setIsInstalled(true); // UI disable 
-        toast(`✅ ${title} App Installed`);
+        toast.success(`${title} App Installed!`);
     };
 
 
