@@ -2,7 +2,7 @@ import React, { Suspense, useEffect, useState } from 'react';
 
 import App from '../../components/App/App';
 import { useLoaderData } from 'react-router';
-import AppError from '../../components/AppError/AppError';
+import SearchError from '../../components/SearchError/SearchError';
 
 
 const Apps = () => {
@@ -55,7 +55,7 @@ const Apps = () => {
             {
                 searchApp.length === 0 ? (
                     <div>
-                        <AppError onReset={handleReset}></AppError>
+                        <SearchError onReset={handleReset}></SearchError>
                     </div>
                 ) : (
                     <div className='grid grid-cols-4 gap-5 gap-y-10 mt-10'>

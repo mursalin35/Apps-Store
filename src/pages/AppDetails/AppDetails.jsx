@@ -7,6 +7,7 @@ import Description from '../../components/Description/Description';
 import Chart from '../../components/Chart/Chart';
 import { addToStore, getInstallApp } from '../../utility/localStore';
 import { toast } from 'react-toastify';
+import AppError from '../../components/AppError/AppError';
 
 const AppDetails = () => {
     const { id } = useParams(); // click card id number found
@@ -15,6 +16,14 @@ const AppDetails = () => {
     const data = useLoaderData(); // data load
     const singleApp = data.find(app => app.id === appId) // app & appDetails id match
 
+    // App not found, show app error 
+    if (!singleApp) {
+        return (
+            <AppError></AppError>
+        );
+    }
+
+    // Single app destructure
     const { image, title, description, size, reviews, ratingAvg, downloads, ratings } = singleApp;
 
 
@@ -81,7 +90,7 @@ const AppDetails = () => {
                             //  Installed hole disable button
                             <button
                                 disabled
-                                className='rounded-sm w-52 h-10 bg-gray-400 text-white font-semibold cursor-not-allowed'
+                                className='rounded-sm w-52 h-10 bg-gray-400 text-white font-semibold cursor-pointer'
                             >
                                 Installed
                             </button>
