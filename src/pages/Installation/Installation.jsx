@@ -4,42 +4,53 @@ import { getInstallApp, removeFromStore } from '../../utility/localStore';
 import InstallCard from '../../components/InstallCard/InstallCard';
 
 const Installation = () => {
-    // Tab title change 
+    //  Tab title change 
     useEffect(() => {
         document.title = "Apps Installation";
     }, []);
 
-    const [install, setInstall] = useState([]); // Install app -> state
-    const [sort, setSort] = useState("none"); // sort by size
+    //  States
+    const [install, setInstall] = useState([]); // Installed apps
+    const [sort, setSort] = useState("none");   // Sort option
 
-    const data = useLoaderData();  // data load from loader:
+    const data = useLoaderData(); // Loader data
 
-    // localStorage from get id
+    //  Load installed apps from localStorage
     useEffect(() => {
-        const storeAppData = getInstallApp();
-        // all data id & localStorage id matching 
+        const storeAppData = getInstallApp(); // Get installed IDs
         const installedApp = data.filter(app => storeAppData.includes(app.id));
-        setInstall(installedApp); // UI set matching id
+        setInstall(installedApp);
     }, [data]);
 
-    // sorted by app 
-    const handleSort = (type) => {
-        setSort(type); // running UI sort watch
+    //  Convert downloads (e.g. "640K", "1.2M") → numeric
+    const parseDownloads = (value) => {
+        if (typeof value === 'number') return value;
+        if (typeof value !== 'string') return 0;
 
-        if (type === "size-asc") {
-            // sorted by ascending 
-            setInstall([...install].sort((a, b) => a.size - b.size));
+        const num = parseFloat(value);
+        if (value.toUpperCase().includes("M")) return num * 1_000_000;
+        if (value.toUpperCase().includes("K")) return num * 1_000;
+        return num;
+    };
+
+    // Sort handler
+    const handleSort = (type) => {
+        setSort(type);
+
+        if (type === "downloads-asc") {
+            // ascending (low → high)
+            setInstall([...install].sort((a, b) => parseDownloads(a.downloads) - parseDownloads(b.downloads)));
         }
-        else if (type === "size-des") {
-            // sorted by descending
-            setInstall([...install].sort((a, b) => b.size - a.size));
+        else if (type === "downloads-des") {
+            // descending (high → low)
+            setInstall([...install].sort((a, b) => parseDownloads(b.downloads) - parseDownloads(a.downloads)));
         }
     };
 
-    // Uninstall handel
+    // 🟢 Uninstall handler
     const handleUninstall = (id) => {
-        removeFromStore(id); // remove from localStorage
-        setInstall(prev => prev.filter(app => app.id !== id)); // remove from UI
+        removeFromStore(id); // Remove from localStorage
+        setInstall(prev => prev.filter(app => app.id !== id)); // Remove from UI
     };
 
     return (
@@ -47,35 +58,46 @@ const Installation = () => {
             {/* Page title */}
             <div className='text-center'>
                 <h1 className='text-[2.5rem] font-bold'>Your Installed Apps</h1>
-                <p className='opacity-70 mt-3'>Explore All Trending Apps on the Market developed by us</p>
+                <p className='opacity-70 mt-3'>
+                    Explore All Trending Apps on the Market developed by us
+                </p>
             </div>
 
             {/* Found apps & sort control */}
             <div className='flex justify-between mt-10'>
-                <h5 className='font-semibold text-[1.1rem]'>(<span>{install.length}</span>) Apps Found</h5>
+                <h5 className='font-semibold text-[1.1rem]'>
+                    (<span>{install.length}</span>) Apps Found
+                </h5>
 
-                {/* Sort dropdown menu */}
-                <label className='form-control w-32 max-w-xs'>
+                {/* Sort dropdown */}
+                <label className='form-control w-40 max-w-xs'>
                     <select
                         className='select select-bordered'
                         value={sort}
-                        onChange={e => setSort(e.target.value)}>
-                        <option className='opacity-60' value="none">Sort By Size</option>
-                        <option onClick={() => handleSort('size-asc')} value="size-asc">Low-High</option>
-                        <option onClick={() => handleSort('size-des')} value="size-des">High-Low</option>
+                        onChange={(e) => handleSort(e.target.value)}
+                    >
+                        <option className='opacity-60' value="none">Sort by Downloads</option>
+                        <option value="downloads-asc">Low → High</option>
+                        <option value="downloads-des">High → Low</option>
                     </select>
                 </label>
             </div>
 
-            {/* InstallCard component by map */}
-            <div>
+            {/* Installed app list */}
+            <div className='mt-8'>
                 {
-                    install.map(nApp =>
-                        <InstallCard
-                            key={nApp.id}
-                            nApp={nApp}
-                            onUninstall={handleUninstall}
-                        />
+                    install.length > 0 ? (
+                        install.map(nApp => (
+                            <InstallCard
+                                key={nApp.id}
+                                nApp={nApp}
+                                onUninstall={handleUninstall}
+                            />
+                        ))
+                    ) : (
+                        <p className='text-center text-gray-500 mt-10'>
+                            No apps installed yet.
+                        </p>
                     )
                 }
             </div>
