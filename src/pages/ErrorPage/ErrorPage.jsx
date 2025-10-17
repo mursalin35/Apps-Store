@@ -20,7 +20,7 @@ const ErrorPage = () => {
 
             {/* button  */}
             <div className='flex justify-center mt-8 items-center '>
-                <button onClick={()=> navigate(-1)} className='rounded-sm w-30 h-10 bg-gradient-to-br from-[#632EE3] to-[#9F62F2] text-white font-semibold cursor-pointer btn'>Go Back!</button>
+                <button onClick={() => navigate(-1)} className='rounded-sm w-30 h-10 bg-gradient-to-br from-[#632EE3] to-[#9F62F2] text-white text-[1.1rem] font-semibold cursor-pointer btn transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_#9F62F2]'>Go Back!</button>
             </div>
         </section>
     );

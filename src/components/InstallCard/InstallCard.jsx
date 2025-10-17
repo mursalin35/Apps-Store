@@ -2,17 +2,20 @@ import React from 'react';
 import down from '../../assets/icon-downloads.png'
 import rating from '../../assets/icon-ratings.png'
 import { removeFromStore } from '../../utility/localStore';
-const InstallCard = ({nApp, onUninstall }) => {
+import { toast } from 'react-toastify';
+const InstallCard = ({ nApp, onUninstall }) => {
     const { id, image, size, title, downloads, ratingAvg } = nApp;
 
     // 🔥 Uninstall handler
     const handleUninstall = () => {
         removeFromStore(id); // localStorage থেকে মুছে ফেলবে
         onUninstall(id); // Installation component-এ state আপডেট করবে
+
+        toast(`🗑️ ${title} App Uninstalled`);
     }
 
 
-    return (    
+    return (
         // Install card container 
         <div className='bg-white p-2 rounded-xs flex justify-between items-center mt-4'>
             <div className='flex gap-4 items-center'>
@@ -42,7 +45,7 @@ const InstallCard = ({nApp, onUninstall }) => {
             </div>
 
             {/* Button  */}
-            <button onClick={handleUninstall} className='btn bg-[#00D390] text-white px-7'>
+            <button onClick={handleUninstall} className='btn bg-[#00D390] hover:bg-[#05b67b] text-white px-7'>
                 Uninstall
             </button>
         </div>

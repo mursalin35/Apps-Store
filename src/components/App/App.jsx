@@ -12,7 +12,7 @@ const App = ({ app }) => {
         // Link click card details 
         <Link to={`/apps/${id}`}>
             
-            <div className='p-3 bg-white  rounded-sm shadow-lg relative z-0  transition-all duration-300 hover:scale-104'>
+            <div className='p-3 bg-white  rounded-sm shadow-lg relative z-0 transition-all duration-300 hover:scale-104'>
                 {/* Image & title  */}
                 <div className='rounded-md  bg-[#e3e1e1] hover:bg-[#ddd8d8] h-60 overflow-hidden transition-all duration-200'>
                     <img className='w-full h-full object-cover' src={image} alt="" />

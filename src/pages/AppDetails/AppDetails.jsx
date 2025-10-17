@@ -1,28 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLoaderData, useParams } from 'react-router';
 import download from '../../assets/icon-downloads.png'
 import rank from '../../assets/icon-ratings.png'
 import review from '../../assets/icon-review.png'
 import Description from '../../components/Description/Description';
 import Chart from '../../components/Chart/Chart';
-import { addToStore } from '../../utility/localStore';
+import { addToStore, getInstallApp } from '../../utility/localStore';
+import { toast } from 'react-toastify';
 
 const AppDetails = () => {
-
     const { id } = useParams(); // click card id number found
     const appId = parseInt(id); // string to number convert id
 
     const data = useLoaderData(); // data load
     const singleApp = data.find(app => app.id === appId) // app & appDetails id match
 
-    const { image, title, companyName, description, size, reviews, ratingAvg, downloads, ratings } = singleApp;
+    const { image, title, description, size, reviews, ratingAvg, downloads, ratings } = singleApp;
 
-    // local store add & install method 
-    const installApp = id => {
-        addToStore(id)
-    }
 
-    
+    // 🟢 Check Install App
+    const [isInstalled, setIsInstalled] = useState(false);
+
+    // Reload page From check localStorage
+    useEffect(() => {
+        const installedApps = getInstallApp();
+        setIsInstalled(installedApps.includes(appId));
+    }, [appId]);
+
+    // Install Method
+    const handleInstall = () => {
+        addToStore(appId);   // localStorage id add
+        setIsInstalled(true); // UI disable 
+        toast(`✅ ${title} App Installed`);
+    };
+
+
     return (
         // App Details 
         <section className='mt-14 mx-10'>
@@ -63,9 +75,26 @@ const AppDetails = () => {
                         </div>
                     </div>
 
-                    {/* button  */}
-
-                    <button onClick={() => installApp(id)} className='mt-4 rounded-sm w-50 h-10 bg-[#00D390] text-white font-semibold cursor-pointer btn'>Install Now ({size} MB)</button>
+                    {/* Button Install & Desible */}
+                    <div className='mt-5'>
+                        {isInstalled ? (
+                            //  Installed hole disable button
+                            <button
+                                disabled
+                                className='rounded-sm w-52 h-10 bg-gray-400 text-white font-semibold cursor-not-allowed'
+                            >
+                                Installed
+                            </button>
+                        ) : (
+                            // Active hole Install now
+                            <button
+                                onClick={handleInstall}
+                                className='rounded-sm w-52 h-10 bg-[#00D390] text-white font-semibold cursor-pointer hover:bg-[#05b67b] transition btn'
+                            >
+                                Install Now ({size} MB)
+                            </button>
+                        )}
+                    </div>
                 </div>
             </div>
 

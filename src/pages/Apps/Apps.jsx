@@ -2,6 +2,7 @@ import React, { Suspense, useState } from 'react';
 
 import App from '../../components/App/App';
 import { useLoaderData } from 'react-router';
+import AppError from '../../components/AppError/AppError';
 
 
 const Apps = () => {
@@ -13,6 +14,11 @@ const Apps = () => {
     const term = search.trim().toLocaleLowerCase();
     const searchApp = term ?
         data.filter(app => app.title.toLocaleLowerCase().includes(term)) : data;
+
+
+    // Reset all app
+    const handleReset = () => setSearch('');
+
 
     return (
         // All card container 
@@ -40,13 +46,20 @@ const Apps = () => {
 
             </div>
 
-            <Suspense fallback={<span>Loading...</span>}>
-                <section className='grid grid-cols-4 gap-5 gap-y-10 mt-10'>
-                    {
-                        searchApp.map(app => <App key={app.id} app={app}></App>)
-                    }
-                </section>
-            </Suspense>
+            {/* All Apps or AppError  */}
+            {
+                searchApp.length === 0 ? (
+                    <div>
+                        <AppError onReset={handleReset}></AppError>
+                    </div>
+                ) : (
+                    <div className='grid grid-cols-4 gap-5 gap-y-10 mt-10'>
+                        {
+                            searchApp.map(app => <App key={app.id} app={app}></App>)
+                        }
+                    </div>
+                )
+            }
 
         </section>
 
