@@ -1,108 +1,45 @@
-import React, { useEffect, useState } from 'react';
-import { useLoaderData, useParams } from 'react-router';
-import download from '../../assets/icon-downloads.png';
-import rank from '../../assets/icon-ratings.png';
-import review from '../../assets/icon-review.png';
-import Description from '../../components/Description/Description';
-import Chart from '../../components/Chart/Chart';
-import { addToStore, getInstallApp } from '../../utility/localStore';
+import React, { useState, useEffect } from 'react';
+import HeroSection from '../../components/HeroSection/HeroSection';
+import TrendingApps from '../../components/TrendingApps/TrendingApps';
+import { Link } from 'react-router';
+import Loading from '../../components/Loading/Loading'; // তোমার Loading component
 
-const AppDetails = () => {
-    const { id } = useParams(); // clicked card id number found
-    const appId = parseInt(id); // string to number convert
+const Home = () => {
+  const [isLoading, setIsLoading] = useState(true);
 
-    const data = useLoaderData();
-    const singleApp = data.find(app => app.id === appId);
+  // 🟢 Tab title change + Loading simulation
+  useEffect(() => {
+    document.title = "Apps Store";
 
-    const { image, title, description, size, reviews, ratingAvg, downloads, ratings } = singleApp;
+    // simulate page load delay
+    const timer = setTimeout(() => {
+      setIsLoading(false); // 2 seconds পরে main content দেখাবে
+    }, 2000); // 2 seconds delay
 
-    // 🟢 চেক করবে অ্যাপ ইনস্টল করা আছে কিনা
-    const [isInstalled, setIsInstalled] = useState(false);
+    return () => clearTimeout(timer);
+  }, []);
 
-    // পেজ লোড হলে localStorage থেকে চেক করবে
-    useEffect(() => {
-        const installedApps = getInstallApp();
-        setIsInstalled(installedApps.includes(appId));
-    }, [appId]);
+  // 🟢 Loading দেখাবে page load এর সময়
+  if (isLoading) {
+    return <Loading />;
+  }
 
-    // 🔹 Install করার সময়
-    const handleInstall = () => {
-        addToStore(appId);   // localStorage এ ID যোগ হবে
-        setIsInstalled(true); // UI disable হবে
-    };
+  // 🟢 Main Home content
+  return (
+    <div>
+      <HeroSection />
+      <TrendingApps />
 
-    return (
-        <section className="mt-14 mx-10">
-            {/* App Details Section */}
-            <div className="flex flex-col md:flex-row items-center gap-7 border-b-[1.5px] border-gray-300 pb-7">
-
-                {/* card image */}
-                <div className="rounded-md bg-[#e3e1e1] w-64 h-64 overflow-hidden">
-                    <img className="w-full h-full object-cover" src={image} alt={title} />
-                </div>
-
-                {/* card info */}
-                <div className="w-full">
-                    <h1 className="font-bold text-[2rem]">{title}</h1>
-                    <p className="text-sm font-semibold text-gray-500 pb-5 border-b-[1.5px] border-gray-300">
-                        Developed by{" "}
-                        <span className="bg-gradient-to-br from-[#632EE3] to-[#9F62F2] bg-clip-text text-transparent">
-                            M.S Mursalin
-                        </span>
-                    </p>
-
-                    {/* 3 terminal */}
-                    <div className="flex gap-20 mt-7">
-                        <div>
-                            <img className="w-7 h-7" src={download} alt="download icon" />
-                            <p className="mt-2 text-sm opacity-70">Downloads</p>
-                            <h1 className="font-bold text-[2rem]">{downloads}</h1>
-                        </div>
-                        <div>
-                            <img className="w-7 h-7" src={rank} alt="rank icon" />
-                            <p className="mt-2 text-sm opacity-70">Average Ratings</p>
-                            <h1 className="font-bold text-[2rem]">{ratingAvg}</h1>
-                        </div>
-                        <div>
-                            <img className="w-7 h-7" src={review} alt="review icon" />
-                            <p className="mt-2 text-sm opacity-70">Active Apps</p>
-                            <h1 className="font-bold text-[2rem]">{reviews}</h1>
-                        </div>
-                    </div>
-
-                    {/* 🔥 Button Install & Desible */}
-                    <div className='mt-5'>
-                        {isInstalled ? (
-                            // ✅ যদি ইনস্টল করা থাকে → Installed লেখা ও disable button
-                            <button
-                                disabled
-                                className='rounded-sm w-52 h-10 bg-gray-400 text-white font-semibold cursor-not-allowed'
-                            >
-                                Installed
-                            </button>
-                        ) : (
-                            // 🟢 যদি ইনস্টল না করা থাকে → Active "Install Now" button
-                            <button
-                                onClick={handleInstall}
-                                className='rounded-sm w-52 h-10 bg-[#00D390] text-white font-semibold cursor-pointer hover:bg-[#05b67b] transition'
-                            >
-                                Install Now ({size} MB)
-                            </button>
-                        )}
-                    </div>
-                    
-                </div>
-            </div>
-
-            {/* Chart Section */}
-            <div className="mt-8 border-b-[1.5px] border-gray-300 pb-7">
-                <Chart ratings={ratings}></Chart>
-            </div>
-
-            {/* Description Section */}
-            <Description description={description}></Description>
-        </section>
-    );
+      {/* button */}
+      <Link to={'/apps'}>
+        <div className='flex justify-center mt-12 items-center'>
+          <button className='rounded-sm w-30 h-10 bg-gradient-to-br from-[#632EE3] to-[#9F62F2] text-white text-[1.1rem] font-semibold cursor-pointer btn transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_#9F62F2]'>
+            Show all
+          </button>
+        </div>
+      </Link>
+    </div>
+  );
 };
 
-export default AppDetails;
+export default Home;
