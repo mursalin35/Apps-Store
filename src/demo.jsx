@@ -14,7 +14,7 @@ const Home = () => {
     // simulate page load delay
     const timer = setTimeout(() => {
       setIsLoading(false); // 2 seconds পরে main content দেখাবে
-    }, 2000); // 2 seconds delay
+    }, 1000); // 2 seconds delay
 
     return () => clearTimeout(timer);
   }, []);

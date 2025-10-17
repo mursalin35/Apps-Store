@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router';
 import { getInstallApp, removeFromStore } from '../../utility/localStore';
 import InstallCard from '../../components/InstallCard/InstallCard';
+import Loading from '../../components/Loading/Loading'; // 🌀 Import Loader
 
 const Installation = () => {
     //  Tab title change 
@@ -12,6 +13,8 @@ const Installation = () => {
     //  States
     const [install, setInstall] = useState([]); // Installed apps
     const [sort, setSort] = useState("none");   // Sort option
+    const [isLoading, setIsLoading] = useState(true); // 🟢 Loader control
+    const [fadeOut, setFadeOut] = useState(false);    // Fade effect
 
     const data = useLoaderData(); // Loader data
 
@@ -21,6 +24,15 @@ const Installation = () => {
         const installedApp = data.filter(app => storeAppData.includes(app.id));
         setInstall(installedApp);
     }, [data]);
+
+    // 🌀 Page loader timing
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setFadeOut(true);
+            setTimeout(() => setIsLoading(false), 0); // fade duration
+        }, 100); // loader visible time
+        return () => clearTimeout(timer);
+    }, []);
 
     //  Convert downloads (e.g. "640K", "1.2M") → numeric
     const parseDownloads = (value) => {
@@ -36,13 +48,10 @@ const Installation = () => {
     // Sort handler
     const handleSort = (type) => {
         setSort(type);
-
         if (type === "downloads-asc") {
-            // ascending (low → high)
             setInstall([...install].sort((a, b) => parseDownloads(a.downloads) - parseDownloads(b.downloads)));
         }
         else if (type === "downloads-des") {
-            // descending (high → low)
             setInstall([...install].sort((a, b) => parseDownloads(b.downloads) - parseDownloads(a.downloads)));
         }
     };
@@ -53,8 +62,22 @@ const Installation = () => {
         setInstall(prev => prev.filter(app => app.id !== id)); // Remove from UI
     };
 
+    // 🧭 Full-screen loader
+    if (isLoading) {
+        return (
+            <div
+                className={`fixed inset-0 flex items-center justify-center bg-white z-50 transition-opacity duration-500 ${
+                    fadeOut ? 'opacity-0' : 'opacity-100'
+                }`}
+            >
+                <Loading />
+            </div>
+        );
+    }
+
+    // 🧩 Main Page Content
     return (
-        <section className='mx-10 mt-10'>
+        <section className='mx-10 mt-10 animate-fadeIn'>
             {/* Page title */}
             <div className='text-center'>
                 <h1 className='text-[2.5rem] font-bold'>Your Installed Apps</h1>

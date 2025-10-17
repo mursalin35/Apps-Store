@@ -1,9 +1,10 @@
 import React from 'react';
 import logo from '../../assets/logo.png';
 
-const Loading = () => {
+
+const SerachLoader = () => {
     return (
-        <section className="flex justify-center items-center h-screen bg-white">
+        <section className="flex justify-center items-center h-screen">
             <h1 className="text-[3rem] font-[Noto-Serif] opacity-50 font-extrabold tracking-[1rem] flex items-center">
                 L
                 {/* 🌀 Image "O" er jaygay */}
@@ -20,4 +21,4 @@ const Loading = () => {
     );
 };
 
-export default Loading;
+export default SerachLoader;
