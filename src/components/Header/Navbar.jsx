@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react"; // 🔧 useState, useRef, useEffect যোগ করা হয়েছে menu control করার জন্য
+import React, { useState, useRef, useEffect } from "react"; 
 import Logo from "../../assets/logo.png";
 import GitIcon from "../../assets/git-icon.png";
 import { Link, NavLink, useLocation } from "react-router-dom";
@@ -6,7 +6,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 const Navbar = () => {
     const location = useLocation();
 
-    // 🔁 Same tab click → refresh page
+    // Same tab click → refresh page
     const handleTabClick = (e, path) => {
         if (location.pathname === path) {
             e.preventDefault();
@@ -14,7 +14,7 @@ const Navbar = () => {
         }
     };
 
-    // 🌈 Active link style with smooth underline animation
+    // Active link style with smooth underline animation
     const activeLink =
         "relative text-transparent px-2 bg-clip-text bg-gradient-to-tl from-[#9F62F2] to-[#632EE3] " +
         "after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:w-full after:h-[2px] " +
@@ -24,13 +24,13 @@ const Navbar = () => {
     const inactiveLink =
         "relative text-gray-700 px-2 hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-tl hover:from-[#9F62F2] hover:to-[#632EE3] transition-all duration-300 ";
 
-    // 🆕 নতুন state: menu খোলা/বন্ধ নিয়ন্ত্রণের জন্য
+    // menu open or close state
     const [menuOpen, setMenuOpen] = useState(false);
 
-    // 🆕 useRef ব্যবহার করেছি dropdown-এর বাইরে ক্লিক detect করার জন্য
+    // dropdown outSite click detect
     const menuRef = useRef(null);
 
-    // 🆕 বাইরে ক্লিক করলে menu বন্ধ হবে
+    // outSite click, then close menu
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -47,7 +47,7 @@ const Navbar = () => {
                 to="/"
                 onClick={(e) => {
                     handleTabClick(e, "/");
-                    setMenuOpen(false); // 🆕 লিংকে ক্লিক করলে menu auto বন্ধ
+                    setMenuOpen(false); // Link click menu, then auto close
                 }}
                 className={({ isActive }) => (isActive ? activeLink : inactiveLink)}
             >
@@ -58,7 +58,7 @@ const Navbar = () => {
                 to="/apps"
                 onClick={(e) => {
                     handleTabClick(e, "/apps");
-                    setMenuOpen(false); // 🆕 লিংকে ক্লিক করলে menu auto বন্ধ
+                    setMenuOpen(false); // Link click menu, then auto close
                 }}
                 className={({ isActive }) => (isActive ? activeLink : inactiveLink)}
             >
@@ -69,7 +69,7 @@ const Navbar = () => {
                 to="/installation"
                 onClick={(e) => {
                     handleTabClick(e, "/installation");
-                    setMenuOpen(false); // 🆕 লিংকে ক্লিক করলে menu auto বন্ধ
+                    setMenuOpen(false); // Link click menu, then auto close
                 }}
                 className={({ isActive }) => (isActive ? activeLink : inactiveLink)}
             >
@@ -102,10 +102,10 @@ const Navbar = () => {
                     <span>Contribute</span>
                 </a>
 
-                {/* 🔧 Mobile Menu Button (React-based toggle system) */}
+                {/* Mobile Menu Button (React-based toggle system) */}
                 <div className="lg:hidden relative" ref={menuRef}>
                     <button
-                        onClick={() => setMenuOpen((prev) => !prev)} // 🆕 state দিয়ে menu toggle
+                        onClick={() => setMenuOpen((prev) => !prev)} // use state menu toggle
                         className="btn btn-ghost m-1"
                     >
                         <svg
@@ -124,7 +124,7 @@ const Navbar = () => {
                         </svg>
                     </button>
 
-                    {/* 🆕 Conditional rendering: menuOpen true হলে তবেই দেখাবে */}
+                    {/* Conditional rendering: menuOpen true, then visible */}
                     {menuOpen && (
                         <ul className="absolute right-0 mt-2 w-52 p-4 bg-white rounded-md shadow font-semibold z-50">
                             {navLinks}
@@ -132,7 +132,7 @@ const Navbar = () => {
                                 target="_blank"
                                 href="https://github.com/mursalin35"
                                 className="flex items-center gap-2 mt-3 bg-gradient-to-tl from-[#9F62F2] to-[#632EE3] text-white py-2 px-3 rounded-md"
-                                onClick={() => setMenuOpen(false)} // 🆕 ক্লিক করলে menu বন্ধ
+                                onClick={() => setMenuOpen(false)} // click, then menu close
                             >
                                 <img src={GitIcon} alt="git icon" className="h-5 w-5" />
                                 <span>Contribute</span>

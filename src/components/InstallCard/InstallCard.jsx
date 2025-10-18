@@ -6,12 +6,12 @@ import { toast } from 'react-toastify';
 const InstallCard = ({ nApp, onUninstall }) => {
     const { id, image, size, title, downloads, ratingAvg } = nApp;
 
-    // 🔥 Uninstall handler
+    // Uninstall handler
     const handleUninstall = () => {
-        removeFromStore(id); // localStorage থেকে মুছে ফেলবে
-        onUninstall(id); // Installation component-এ state আপডেট করবে
+        removeFromStore(id); // localStorage remove
+        onUninstall(id); // Installation component state update
 
-        // toast(`🗑️ ${title} App Uninstalled`);
+        // toast alert App Uninstalled`);
         toast.error(`${title} App Uninstalled!`, {position: "top-center",});
     }
 

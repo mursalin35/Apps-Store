@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import appError from '../../assets/App-Error.png';
 import { useNavigate } from 'react-router';
-import Loading from '../../components/Loading/Loading'; // 🌀 Loader import
+import Loading from '../../components/Loading/Loading'; 
 
 const AppError = () => {
     const navigate = useNavigate();
 
-    // 🌀 Loader states
+    // Loader states
     const [isLoading, setIsLoading] = useState(true);
     const [fadeOut, setFadeOut] = useState(false);
 
@@ -18,7 +18,8 @@ const AppError = () => {
         return () => clearTimeout(timer);
     }, []);
 
-    // 🔹 Show loader while page loads
+
+    // Show loader while page loads
     if (isLoading) {
         return (
             <div
@@ -31,7 +32,7 @@ const AppError = () => {
         );
     }
 
-    // 🔹 Main Error Content
+    // Main Error Content
     return (
         <section className='my-10 px-4 sm:px-6 md:px-10'>
             {/* Error image */}

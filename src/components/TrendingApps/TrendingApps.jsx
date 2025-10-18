@@ -9,7 +9,6 @@ const TrendingApps = () => {
 
     return (
         // TrendingApp App container 
-   
         <section className='mt-5 mx-10'>
             {/* title  */}
             <div className='text-center'>

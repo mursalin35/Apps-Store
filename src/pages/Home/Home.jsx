@@ -6,17 +6,17 @@ import Loading from '../../components/Loading/Loading';
 
 const Home = () => {
     const [isLoading, setIsLoading] = useState(true);
-    const [fadeOut, setFadeOut] = useState(false); // fade effect control
+    const [fadeOut, setFadeOut] = useState(false); // fade/full loader effect control
 
     // Tab title change & loader timing
     useEffect(() => {
         document.title = "Apps Store";
 
-        // Loader show then fade out
+        // Loader show then fade out/full screen
         const timer = setTimeout(() => {
             setFadeOut(true); // Start fade out
             setTimeout(() => setIsLoading(false), 0); // Remove loader after fade
-        }, 100); // Total loader visible time (you can change this)
+        }, 100); // loading duration 
 
         return () => clearTimeout(timer);
     }, []);

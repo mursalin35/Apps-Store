@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import App from '../../components/App/App';
 import { useLoaderData } from 'react-router';
 import SearchError from '../../components/SearchError/SearchError';
-import Loading from '../../components/Loading/Loading'; // Loader component
+import Loading from '../../components/Loading/Loading';
 import SerachLoader from '../../components/SerachLoader/SerachLoader';
 
 const Apps = () => {
@@ -22,14 +22,14 @@ const Apps = () => {
     // Reset search
     const handleReset = () => {
         setSearch('');
-        setSearchApp(data); // 🔥 reset filtered app list
+        setSearchApp(data); // reset filtered app list
     };
 
     // Full screen loader state
     const [isLoading, setIsLoading] = useState(true);
     const [fadeOut, setFadeOut] = useState(false);
 
-    // Page loader fade effect
+    // Page loader Full screen
     useEffect(() => {
         const timer = setTimeout(() => {
             setFadeOut(true);
@@ -44,10 +44,10 @@ const Apps = () => {
         setSearch(e.target.value);
         setIsSearching(true);
 
-        // simulate small delay for loader
+        // Search loader
         setTimeout(() => {
             if (term) {
-                setSearchApp(data.filter(app => app.title.toLowerCase().includes(term)));
+                setSearchApp(data.filter(app => app.title.toLowerCase().includes(term))); // app title convert lowerCase
             } else {
                 setSearchApp(data);
             }
@@ -91,17 +91,17 @@ const Apps = () => {
             {/* Apps / Search Loader / Search Error */}
             <div className='mt-10'>
                 {isSearching ? (
-                    // 🔄 Loader during search
+                    // Loader during search
                     <div className='flex justify-center items-center h-60'>
                         <SerachLoader />
                     </div>
                 ) : searchApp.length === 0 ? (
-                    // ❌ Search Error (centered)
+                    //  Search Error 
                     <div className='flex justify-center items-center h-60 my-20'>
                         <SearchError onReset={handleReset} />
                     </div>
                 ) : (
-                    // ✅ All app cards
+                    // All app cards
                     <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 gap-y-10'>
                         {searchApp.map(app => <App key={app.id} app={app} />)}
                     </div>

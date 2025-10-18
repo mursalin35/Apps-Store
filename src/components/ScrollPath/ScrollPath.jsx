@@ -7,7 +7,7 @@ const ScrollPath = () => {
     useEffect(() => {
         window.scrollTo({
             top: 0,
-            behavior: 'instant', // অথবা instant: behavior: 'auto'
+            behavior: 'instant', 
         });
     }, [pathname]);
 

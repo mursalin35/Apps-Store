@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router';
 import { getInstallApp, removeFromStore } from '../../utility/localStore';
 import InstallCard from '../../components/InstallCard/InstallCard';
-import Loading from '../../components/Loading/Loading'; // 🌀 Import Loader
+import Loading from '../../components/Loading/Loading'; 
 
 const Installation = () => {
     //  Tab title change 
@@ -13,7 +13,7 @@ const Installation = () => {
     //  States
     const [install, setInstall] = useState([]); // Installed apps
     const [sort, setSort] = useState("none");   // Sort option
-    const [isLoading, setIsLoading] = useState(true); // 🟢 Loader control
+    const [isLoading, setIsLoading] = useState(true); //  Loader control
     const [fadeOut, setFadeOut] = useState(false);    // Fade effect
 
     const data = useLoaderData(); // Loader data
@@ -25,16 +25,16 @@ const Installation = () => {
         setInstall(installedApp);
     }, [data]);
 
-    // 🌀 Page loader timing
+    // Page loader timing
     useEffect(() => {
         const timer = setTimeout(() => {
             setFadeOut(true);
             setTimeout(() => setIsLoading(false), 0); // fade duration
-        }, 100); // loader visible time
+        }, 100); // loading duration
         return () => clearTimeout(timer);
     }, []);
 
-    //  Convert downloads (e.g. "640K", "1.2M") → numeric
+    //  Convert downloads any value → numeric
     const parseDownloads = (value) => {
         if (typeof value === 'number') return value;
         if (typeof value !== 'string') return 0;
@@ -56,13 +56,13 @@ const Installation = () => {
         }
     };
 
-    // 🟢 Uninstall handler
+    //  Uninstall handler
     const handleUninstall = (id) => {
         removeFromStore(id); // Remove from localStorage
         setInstall(prev => prev.filter(app => app.id !== id)); // Remove from UI
     };
 
-    // 🧭 Full-screen loader
+    // Full-screen loader
     if (isLoading) {
         return (
             <div
@@ -74,7 +74,7 @@ const Installation = () => {
         );
     }
 
-    // 🧩 Main Page Content
+    //  Main Page Content
     return (
         <section className='mx-10 mt-10 animate-fadeIn'>
             {/* Page title */}

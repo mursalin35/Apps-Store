@@ -8,7 +8,7 @@ import Chart from '../../components/Chart/Chart';
 import { addToStore, getInstallApp } from '../../utility/localStore';
 import { toast } from 'react-toastify';
 import AppError from '../../components/AppError/AppError';
-import Loading from '../../components/Loading/Loading'; // 🌀 Loader component import
+import Loading from '../../components/Loading/Loading'; 
 
 const AppDetails = () => {
     const { id } = useParams();
@@ -17,19 +17,19 @@ const AppDetails = () => {
     const data = useLoaderData();
     const singleApp = data.find(app => app.id === appId);
 
-    // 🔴 App not found
+    // App not found error
     if (!singleApp) {
         return <AppError />;
     }
 
     const { image, title, description, size, companyName, reviews, ratingAvg, downloads, ratings } = singleApp;
 
-    // 🔹 Dynamic Page Title
+    // Dynamic Page Title
     useEffect(() => {
         document.title = `Apps | ${title}`;
     }, [title]);
 
-    // 🟢 Check Install App
+    // Check Install App
     const [isInstalled, setIsInstalled] = useState(false);
 
     // Reload page From check localStorage
@@ -38,14 +38,14 @@ const AppDetails = () => {
         setIsInstalled(installedApps.includes(appId));
     }, [appId]);
 
-    // 🟢 Install handler
+    // Install handler
     const handleInstall = () => {
         addToStore(appId);   // localStorage id add
         setIsInstalled(true); // UI disable 
         toast.success(`${title} App Installed!`);
     };
 
-    // 🌀 Loader state
+    // Loader state
     const [isLoading, setIsLoading] = useState(true);
     const [fadeOut, setFadeOut] = useState(false);
 
@@ -57,7 +57,7 @@ const AppDetails = () => {
         return () => clearTimeout(timer);
     }, []);
 
-    // 🌀 Show loader until fade complete
+    //  Show loader full screen
     if (isLoading) {
         return (
             <div
