@@ -7,7 +7,7 @@ import Loading from '../../components/Loading/Loading'; // 🌀 Import Loader
 const Installation = () => {
     //  Tab title change 
     useEffect(() => {
-        document.title = "Apps Installation";
+        document.title = "Installed Apps";
     }, []);
 
     //  States
