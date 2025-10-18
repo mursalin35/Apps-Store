@@ -18,7 +18,7 @@ const TrendingApps = () => {
             </div>
 
             {/* Card container  */}
-            <div className='grid grid-cols-4 gap-5 gap-y-10 mt-10'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 gap-y-10 mt-10'>
                 {
                     limitedApps.map(app => <App key={app.id} app={app}></App>)
                 }

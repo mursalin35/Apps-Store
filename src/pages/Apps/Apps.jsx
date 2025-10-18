@@ -77,7 +77,7 @@ const Apps = () => {
             <div className='flex justify-between mt-10 -mb-4'>
                 <h5 className='font-semibold text-[1.1rem]'>({searchApp.length}) Apps Found</h5>
 
-                <label className="input">
+                <label className="input w-40 sm:w-60 md:w-70 lg:w-78">
                     <i className="fa-solid fa-magnifying-glass opacity-40 text-[1.1rem]"></i>
                     <input
                         value={search}
@@ -97,12 +97,12 @@ const Apps = () => {
                     </div>
                 ) : searchApp.length === 0 ? (
                     // ❌ Search Error (centered)
-                    <div className='flex justify-center items-center h-60'>
+                    <div className='flex justify-center items-center h-60 my-20'>
                         <SearchError onReset={handleReset} />
                     </div>
                 ) : (
                     // ✅ All app cards
-                    <div className='grid grid-cols-4 gap-5 gap-y-10'>
+                    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 gap-y-10'>
                         {searchApp.map(app => <App key={app.id} app={app} />)}
                     </div>
                 )}
