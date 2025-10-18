@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react"; // 🔧 useState, useRef, useEffect যোগ করা হয়েছে menu control করার জন্য
 import Logo from "../../assets/logo.png";
 import GitIcon from "../../assets/git-icon.png";
 import { Link, NavLink, useLocation } from "react-router-dom";
@@ -24,11 +24,31 @@ const Navbar = () => {
     const inactiveLink =
         "relative text-gray-700 px-2 hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-tl hover:from-[#9F62F2] hover:to-[#632EE3] transition-all duration-300 ";
 
+    // 🆕 নতুন state: menu খোলা/বন্ধ নিয়ন্ত্রণের জন্য
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    // 🆕 useRef ব্যবহার করেছি dropdown-এর বাইরে ক্লিক detect করার জন্য
+    const menuRef = useRef(null);
+
+    // 🆕 বাইরে ক্লিক করলে menu বন্ধ হবে
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                setMenuOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
     const navLinks = (
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 items-center">
             <NavLink
                 to="/"
-                onClick={(e) => handleTabClick(e, "/")}
+                onClick={(e) => {
+                    handleTabClick(e, "/");
+                    setMenuOpen(false); // 🆕 লিংকে ক্লিক করলে menu auto বন্ধ
+                }}
                 className={({ isActive }) => (isActive ? activeLink : inactiveLink)}
             >
                 Home
@@ -36,7 +56,10 @@ const Navbar = () => {
 
             <NavLink
                 to="/apps"
-                onClick={(e) => handleTabClick(e, "/apps")}
+                onClick={(e) => {
+                    handleTabClick(e, "/apps");
+                    setMenuOpen(false); // 🆕 লিংকে ক্লিক করলে menu auto বন্ধ
+                }}
                 className={({ isActive }) => (isActive ? activeLink : inactiveLink)}
             >
                 Apps
@@ -44,7 +67,10 @@ const Navbar = () => {
 
             <NavLink
                 to="/installation"
-                onClick={(e) => handleTabClick(e, "/installation")}
+                onClick={(e) => {
+                    handleTabClick(e, "/installation");
+                    setMenuOpen(false); // 🆕 লিংকে ক্লিক করলে menu auto বন্ধ
+                }}
                 className={({ isActive }) => (isActive ? activeLink : inactiveLink)}
             >
                 Installation
@@ -53,8 +79,8 @@ const Navbar = () => {
     );
 
     return (
-        <nav className="bg-white shadow-md sticky top-0 z-50 ">
-            <div className=" mx-10 flex justify-between items-center py-4 ">
+        <nav className="bg-white shadow-md sticky top-0 z-50">
+            <div className="mx-10 flex justify-between items-center py-4">
                 {/* Logo */}
                 <Link to={"/"} className="flex items-center gap-2">
                     <img className="h-10 w-10" src={Logo} alt="logo" />
@@ -76,9 +102,12 @@ const Navbar = () => {
                     <span>Contribute</span>
                 </a>
 
-                {/* Mobile Menu Button */}
-                <div className="lg:hidden dropdown dropdown-end">
-                    <label tabIndex={0} className="btn btn-ghost m-1">
+                {/* 🔧 Mobile Menu Button (React-based toggle system) */}
+                <div className="lg:hidden relative" ref={menuRef}>
+                    <button
+                        onClick={() => setMenuOpen((prev) => !prev)} // 🆕 state দিয়ে menu toggle
+                        className="btn btn-ghost m-1"
+                    >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-6 w-6"
@@ -93,21 +122,23 @@ const Navbar = () => {
                                 d="M4 6h16M4 12h16M4 18h16"
                             />
                         </svg>
-                    </label>
-                    <ul
-                        tabIndex={0}
-                        className="dropdown-content menu bg-base-100 rounded-box w-52 mt-2 p-4 shadow font-semibold"
-                    >
-                        {navLinks}
-                        <a
-                            target="_blank"
-                            href="https://github.com/mursalin35"
-                            className="flex items-center gap-2 mt-3 bg-gradient-to-tl from-[#9F62F2] to-[#632EE3] text-white py-2 px-3 rounded-md"
-                        >
-                            <img src={GitIcon} alt="git icon" className="h-5 w-5" />
-                            <span>Contribute</span>
-                        </a>
-                    </ul>
+                    </button>
+
+                    {/* 🆕 Conditional rendering: menuOpen true হলে তবেই দেখাবে */}
+                    {menuOpen && (
+                        <ul className="absolute right-0 mt-2 w-52 p-4 bg-white rounded-md shadow font-semibold z-50">
+                            {navLinks}
+                            <a
+                                target="_blank"
+                                href="https://github.com/mursalin35"
+                                className="flex items-center gap-2 mt-3 bg-gradient-to-tl from-[#9F62F2] to-[#632EE3] text-white py-2 px-3 rounded-md"
+                                onClick={() => setMenuOpen(false)} // 🆕 ক্লিক করলে menu বন্ধ
+                            >
+                                <img src={GitIcon} alt="git icon" className="h-5 w-5" />
+                                <span>Contribute</span>
+                            </a>
+                        </ul>
+                    )}
                 </div>
             </div>
         </nav>
