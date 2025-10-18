@@ -66,9 +66,8 @@ const Installation = () => {
     if (isLoading) {
         return (
             <div
-                className={`fixed inset-0 flex items-center justify-center bg-white z-50 transition-opacity duration-500 ${
-                    fadeOut ? 'opacity-0' : 'opacity-100'
-                }`}
+                className={`fixed inset-0 flex items-center justify-center bg-white z-50 transition-opacity duration-500 ${fadeOut ? 'opacity-0' : 'opacity-100'
+                    }`}
             >
                 <Loading />
             </div>
@@ -81,9 +80,11 @@ const Installation = () => {
             {/* Page title */}
             <div className='text-center'>
                 <h1 className='text-[2.5rem] font-bold'>Your Installed Apps</h1>
-                <p className='opacity-70 mt-3'>
-                    Explore All Trending Apps on the Market developed by us
-                </p>
+                <div className='flex justify-center'>
+                    <p className='opacity-70 mt-3 w-60 md:w-full'>
+                        Explore All Trending Apps on the brMarket developed by us
+                    </p>
+                </div>
             </div>
 
             {/* Found apps & sort control */}
