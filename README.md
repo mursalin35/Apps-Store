@@ -4,7 +4,7 @@ A modern, responsive web application for exploring and managing digital applicat
 
 ## 🔗 Live Demo
 
-[[Insert Live Link Here](https://apps-storebd.netlify.app/)]
+[Live Link](https://apps-storebd.netlify.app/)
 
 ## 🚀 Features
 
