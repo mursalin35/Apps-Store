@@ -2,6 +2,10 @@
 
 A modern, responsive web application for exploring and managing digital applications. Built with React, Vite, and Tailwind CSS.
 
+## 🔗 Live Demo
+
+[[Insert Live Link Here](https://apps-storebd.netlify.app/)]
+
 ## 🚀 Features
 
 - **Browse Apps**: Explore a curated list of applications with filtering and search capabilities.
@@ -58,9 +62,6 @@ src/
 └── main.jsx        # Application entry point
 ```
 
-## 🔗 Live Demo
-
-[Insert Live Link Here]
 
 ---
 
