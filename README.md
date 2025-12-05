@@ -62,7 +62,12 @@ src/
 └── main.jsx        # Application entry point
 ```
 
+## 👨‍💻 Author
+
+**Developed by:** [M.S Mursalin](https://www.facebook.com/mursalin07)  
+📍 Bangladesh  
+🌐 Portfolio: [LinkedIn Profile](https://www.linkedin.com/in/mursalin07/)
 
 ---
 
-*Developed for Programming Hero Web Development Course - Milestone 8, Assignment 8*
+*Thanks for watching this project*
